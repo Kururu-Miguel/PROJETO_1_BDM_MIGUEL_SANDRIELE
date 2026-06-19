@@ -29,6 +29,10 @@
         <activity
             android:name=".viewmodel.LoginActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".viewmodel.CadastroActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
