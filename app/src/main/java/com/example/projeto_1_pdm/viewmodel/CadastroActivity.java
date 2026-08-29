@@ -41,7 +41,7 @@ public class CadastroActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()){
-                        startActivity(new Intent(this, ClubeActivity.class));
+                        startActivity(new Intent(this, MainActivity.class));
                     } else {
                         Toast.makeText(this, "Deu errado", Toast.LENGTH_LONG).show();
                     }

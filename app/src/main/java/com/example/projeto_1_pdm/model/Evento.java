@@ -3,15 +3,14 @@ package com.example.projeto_1_pdm.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.io.Serializable;
-
-@Entity(tableName = "clubes")
-public class Clube implements Serializable {
+@Entity(tableName = "eventos")
+public class Evento {
     @PrimaryKey(autoGenerate = true)
     public long id;
-    public String nome;
+    public long clubeId;
+    public String titulo;
     public String descricao;
-    public String fotoUrl;
-    public String criadoPorId; // referência ao Usuario.id
+    public long horario; // timestamp
+    public String local;
     public long createdAt;
 }

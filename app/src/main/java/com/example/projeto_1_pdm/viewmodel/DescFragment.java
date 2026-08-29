@@ -1,49 +1,25 @@
 package com.example.projeto_1_pdm.viewmodel;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.projeto_1_pdm.R;
+import com.example.projeto_1_pdm.model.Clube;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DescFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DescFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private Clube clube;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public DescFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DescFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static DescFragment newInstance(String param1, String param2) {
+    public static DescFragment newInstance(Clube clube) {
         DescFragment fragment = new DescFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putSerializable("CLUBE", clube);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,15 +28,35 @@ public class DescFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            clube = (Clube) getArguments().getSerializable("CLUBE");
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_desc, container, false);
+        View view = inflater.inflate(R.layout.fragment_desc, container, false);
+
+        if (clube != null) {
+            ImageView ivFoto = view.findViewById(R.id.iv_foto_clube);
+            TextView tvNome = view.findViewById(R.id.tv_nome);
+            TextView tvDescricao = view.findViewById(R.id.tv_descricao);
+
+            tvNome.setText(clube.nome);
+            tvDescricao.setText(clube.descricao != null ? clube.descricao : "Sem descrição");
+
+            // Carregar foto (se tiver URL)
+            if (clube.fotoUrl != null && !clube.fotoUrl.isEmpty()) {
+                Glide.with(this)
+                        .load(clube.fotoUrl)
+                        .placeholder(R.drawable.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
+                        .into(ivFoto);
+            } else {
+                ivFoto.setImageResource(R.drawable.ic_placeholder);
+            }
+        }
+
+        return view;
     }
 }

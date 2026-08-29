@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- Para Android 12 e inferior -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- Para Android 13+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -32,6 +36,18 @@
 
         <activity
             android:name=".viewmodel.CadastroActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".viewmodel.CadastroClubeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".viewmodel.MainActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".viewmodel.CadastroEventoActivity"
             android:exported="false" />
     </application>
 
